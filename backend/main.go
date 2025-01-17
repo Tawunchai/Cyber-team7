@@ -6,12 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 
 	"cyber-team7/config"
-
-	"cyber-team7/controller/genders"
-
-	"cyber-team7/controller/users"
-
-	"cyber-team7/middlewares"
+	"cyber-team7/controller"
 )
 
 const PORT = "8000"
@@ -30,31 +25,26 @@ func main() {
 
 	r.Use(CORSMiddleware())
 
-	// Auth Route
-
-	r.POST("/signup", users.SignUp)
-
-	r.POST("/signin", users.SignIn)
-
 	router := r.Group("/")
 
 	{
 
-		router.Use(middlewares.Authorizes())
+		router.Use()
 
-		// User Route
+		// Exam one
+		router.GET("/hashone", controller.GenerateHashQ1)
 
-		router.PUT("/user/:id", users.Update)
+		router.GET("/hashtwo", controller.GenerateHashQ2)
 
-		router.GET("/users", users.GetAll)
+		router.GET("/trackHash", controller.TrackHash)
 
-		router.GET("/user/:id", users.Get)
+		router.GET("/checkAnswerHash", controller.CheckAnswerHash)
 
-		router.DELETE("/user/:id", users.Delete)
+		// Exam two
+		router.GET("/symmetric", controller.Symmetric)
+
 
 	}
-
-	r.GET("/genders", genders.GetAll)
 
 	r.GET("/", func(c *gin.Context) {
 
