@@ -13,9 +13,8 @@ import (
 	"net/http"
 )
 
-// AES Symmetric Encryption
-var aesKey = []byte("12345678901234567890123456789012") // 32 bytes key
-var aesIV = []byte("1234567890123456")                  // 16 bytes IV
+var aesKey = []byte("12345678901234567890123456789012") 
+var aesIV = []byte("1234567890123456")                  
 
 func aesEncrypt(plainText string) string {
 	block, err := aes.NewCipher(aesKey)
